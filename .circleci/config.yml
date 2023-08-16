@@ -1,12 +1,12 @@
 version 2.1
-
 jobs:
-  saluda:
-    docker:
-      - image cimg/base:stable
+  saluda: # this can be any name you choose
+    docker: 
+      - image cimg/base:stable # use the default executor defined within the orb
     steps:
       - run: echo hola
 workflows:
-  hello:
-    jobs:
-      - saluda
+  hello: # this can be any name you choose
+    jobs: 
+      - saluda # use the default executor defined within the orb
+         
