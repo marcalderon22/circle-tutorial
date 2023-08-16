@@ -1,48 +1,18 @@
 version: 2.1
+
+parameters:
+  nombre:
+    type: string
+    default: guof
 jobs:
   saluda: # this can be any name you choose
     docker: 
       - image: cimg/base:stable 
     steps:
-      - run: echo hola
-  despidete:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run: echo pre adios
-      - run: echo adios
-      - run: echo post adios
+      - run: echo hola << pipeline.parameters.nombre >>
+
 workflows:
   workflow1: # this can be any name you choose
       jobs: 
         - saluda
-        - despidete
-  workflow2: # this can be any name you choose
-      jobs: 
-        - saluda
-        - despidete:
-            requires:
-              - saluda
-  workflow3: # this can be any name you choose
-      jobs: 
-        - saluda
-        - approval:
-            type: approval
-            requires:
-              - saluda
-        - despidete:
-            requires:
-            - approval
-  nightly:
-    triggers:
-      - schedule:
-          cron: "33 21 * * *"
-          filters:
-            branches:
-              only:
-                main
-    jobs:
-      - saluda
-      - despidete:
-          requires:
-            - saluda
+        
