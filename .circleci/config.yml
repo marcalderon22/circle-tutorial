@@ -37,10 +37,10 @@ workflows:
     triggers:
       - schedule:
           cron: "26 10 * * *"
-        filters:
-          branches:
-            only:
-              - main
+          filters:
+            branches:
+              only:
+                main
     jobs:
       - salida:
       - despidete:
