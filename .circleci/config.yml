@@ -14,11 +14,13 @@ jobs:
 
 workflows:
   workflow1: # this can be any name you choose
-    jobs: 
-      - saluda
+    jobs:
+      - saluda:
+          name saluda_gof
 
   workflow2:
     jobs:
       - saluda:
+          name: saluda_chom
           nombre: chomchito
         
