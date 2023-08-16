@@ -13,13 +13,11 @@ jobs:
       - run: echo adios
       - run: echo post adios
 workflows:
-  workflows1:
-    hello: # this can be any name you choose
+  workflow1: # this can be any name you choose
       jobs: 
         - saluda
         - despidete
-  workflows2:
-    hello: # this can be any name you choose
+  workflow2: # this can be any name you choose
       jobs: 
         - saluda
         - despidete:
