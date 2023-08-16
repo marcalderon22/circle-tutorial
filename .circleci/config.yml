@@ -5,7 +5,13 @@ jobs:
       - image: cimg/base:stable # use the default executor defined within the orb
     steps:
       - run: echo hola
+  despidete:
+    docker:
+      - run: echo pre adios
+      - run: echo pre adios
+      - run: echo post adios
 workflows:
   hello: # this can be any name you choose
     jobs: 
-      - saluda # use the default executor defined within the orb
+      - saluda
+      - despidete
