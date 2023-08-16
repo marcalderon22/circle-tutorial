@@ -23,3 +23,13 @@ workflows:
         - despidete:
             requires:
               - saluda
+  workflow3: # this can be any name you choose
+      jobs: 
+        - saluda
+        - approval:
+            type: approval
+            requires:
+              - saluda
+        - despidete:
+            requires:
+            - approval
