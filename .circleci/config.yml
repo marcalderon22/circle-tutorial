@@ -2,11 +2,13 @@ version: 2.1
 jobs:
   saluda: # this can be any name you choose
     docker: 
-      - image: cimg/base:stable # use the default executor defined within the orb
+      - image: cimg/base:stable 
     steps:
       - run: echo hola
   despidete:
     docker:
+      - image: cimg/base:stable
+    steps:
       - run: echo pre adios
       - run: echo pre adios
       - run: echo post adios
