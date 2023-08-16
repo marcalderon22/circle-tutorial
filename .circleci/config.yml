@@ -6,7 +6,7 @@ jobs:
     parameters:
       nombre:
         type: string
-        default: guof
+        default: Martin
     docker: 
       - image: cimg/base:stable 
     steps:
@@ -16,11 +16,11 @@ workflows:
   workflow1: # this can be any name you choose
     jobs:
       - saluda:
-          name: saluda_gof
+          name: saluda_m
 
   workflow2:
     jobs:
       - saluda:
-          name: saluda_chom
-          nombre: chomchito
+          name: saluda_r
+          nombre: Rolando
         
