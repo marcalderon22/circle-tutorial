@@ -36,13 +36,13 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: "29 10 * * *"
+          cron: "31 15 * * *"
           filters:
             branches:
               only:
                 main
     jobs:
-      - salida
+      - saluda
       - despidete:
           requires:
             - saluda
