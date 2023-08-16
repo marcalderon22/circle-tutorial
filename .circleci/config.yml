@@ -10,7 +10,7 @@ jobs:
     docker: 
       - image: cimg/base:stable 
     steps:
-      - run: echo hola << pipeline.parameters.nombre>>
+      - run: echo hola << parameters.nombre>>
 
 workflows:
   workflow1: # this can be any name you choose
