@@ -1,16 +1,29 @@
 version: 2.1
 
-
+commands:
+  dime_la_hora_y_espera:
+    steps:
+      - run: date && sleep 10
 jobs:
   saluda:
-    machine: 
-      image: ubuntu-2204:2023.07.2
+    docker: 
+      - image: ubuntu:latest
     steps:
-      - run: echo hola 
+      - dime_la_hora_y_espera
+      - run: echo hola
+      - dime_la_hora_y_espera
+  despidete:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - dime_la_hora_y_espera
+      - run: echo adios
+      - dime_la_hora_y_espera
 
 workflows:
   workflow1: # this can be any name you choose
     jobs:
       - saluda
+      - despidete
           
 
