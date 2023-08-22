@@ -3,24 +3,14 @@ version: 2.1
 
 jobs:
   saluda:
-    parameters:
-      nombre:
-        type: string
-        default: Martin
     docker: 
-      - image: cimg/base:stable 
+      - image: ubuntu:latest 
     steps:
-      - run: echo hola << parameters.nombre>>
+      - run: echo hola 
 
 workflows:
   workflow1: # this can be any name you choose
     jobs:
-      - saluda:
-          name: saluda_m
+      - saluda
+          
 
-  workflow2:
-    jobs:
-      - saluda:
-          name: saluda_r
-          nombre: Rolando
-        
