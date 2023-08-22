@@ -11,10 +11,10 @@ jobs:
     docker: 
       - image: cimg/base:stable
     steps:
-      - install-aws-cli
       - checkout:
           path: micodigo/
       - run: find
+      - install-aws-cli
 
 workflows:
   workflow1: # this can be any name you choose
