@@ -21,10 +21,10 @@ jobs:
       - image: cimg/base:stable
     steps:
       - dime_la_hora_y_espera:
-          tiempo: 20
+              tiempo: 20
       - run: echo adios
       - dime_la_hora_y_espera
-          tiempo: 5
+              tiempo: 5
 
 workflows:
   workflow1: # this can be any name you choose
