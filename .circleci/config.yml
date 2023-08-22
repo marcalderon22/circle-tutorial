@@ -13,7 +13,7 @@ jobs:
     steps:
       - install-aws-cli
       - checkout:
-        -path: micodigo/
+          path: micodigo/
       - run: find
 
 workflows:
