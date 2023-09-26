@@ -1,32 +1,22 @@
 version: 2.1
-orbs:
-  slack: circleci/slack@4.9.3
-jobs:
-  notify:
-    docker:
-      - image: cimg/base:2021.04
+
+commands:
+  install-aws-cli:
     steps:
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
+      - run: echo instalando aws cli 
+
+
+jobs:
+  install-dependencies:
+    docker: 
+      - image: cimg/base:stable
+    steps:
+      - checkout:
+          path: micodigo/
+      - run: find
+      - install-aws-cli
+
 workflows:
-  send-notification:
+  workflow1: # this can be any name you choose
     jobs:
-      - notify:
-          context: slack-secrets
-
-
+      - install-dependencies
