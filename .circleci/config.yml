@@ -1,5 +1,6 @@
 version: 2.1
 orbs:
+  node: circleci/node@5.1
   slack: usertech/circleci-slack-orb@5.1.0
 jobs:
   deploy:
@@ -8,40 +9,15 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-      - run: npm run deploy
+      - run:
+          command: npm run deploy
       - slack/notify:
+          channel: ABCXYZ
           event: fail
           template: default_fail_1
-      - slack/notify:
-          event: pass
-          template: default_pass_1
-  test:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run: echo "test my app"
 workflows:
-  test-and-deploy:
+  deploy_and_notify:
     jobs:
-      - test
-      - slack/on-hold:
-          context: slack
-          filters:
-            tags:
-              only: /^v.*/
-          requires:
-            - test
-      - pause_workflow:
-          filters:
-            tags:
-              only: /^v.*/
-          requires:
-            - test
-            - slack/on-hold
-          type: approval
       - deploy:
-          filters:
-            tags:
-              only: /^v.*/
-          requires:
-            - pause_workflow
+          context: SLACK_SECRETS
+
