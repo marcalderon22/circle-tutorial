@@ -14,7 +14,7 @@ jobs:
           command: |
             if [ $? -ne 0 ]; then
               SLACK_MESSAGE="❌ El trabajo de CircleCI ha fallado en el proyecto XYZ. Detalles: $CIRCLE_BUILD_URL"
-              echo "$SLACK_MESSAGE" | circleci-slack notify -t $SLACK_ACCESS_TOKEN -c $SLACK_DEFAULT_CHANNEL
+              echo "$SLACK_MESSAGE" | circleci-slack notify -t context.slack.SLACK_ACCESS_TOKEN -c context.slack.SLACK_DEFAULT_CHANNEL
             fi
 
 workflows:
