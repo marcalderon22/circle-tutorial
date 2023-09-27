@@ -1,49 +1,45 @@
 version: 2.1
 orbs:
-  node: circleci/node@4.1
-  slack: circleci/slack@4.1
+  slack: usertech/circleci-slack-orb@5.1.0
 jobs:
   deploy:
-    executor:
-      name: node/default
+    docker:
+      - image: cimg/base:stable
     steps:
-      - checkout
-      - node/install-packages
-      - run:
-          name: Show Environment Details
-          command: |
-            node --version
-            npm --version
-            # Otros comandos para mostrar información relevante del entorno
-
-      - run:
-          name: Log Error Details
-          command: |
-            # Ejecuta comandos que capturen detalles del error, por ejemplo:
-            # - npm run deploy 2>&1 | tee error.log
-            # Esto redirigirá la salida estándar y de error al archivo error.log
-            # para que puedas revisarlo después del trabajo.
-
-      - run:
-          name: List Working Directory Contents
-          command: |
-            ls -la
-
-      - run:
-          name: npm run deploy
-          command: npm run deploy
-
+      - run: echo "deploy my app"
       - slack/notify:
-          channel: alerts
           event: fail
-          template: basic_fail_1
-
-      - run:
-          name: Show Full Job Log
-          command: cat ~/.circleci/build.log
-
+          template: default_fail_1
+      - slack/notify:
+          event: pass
+          template: default_pass_1
+  test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run: echo "test my app"
 workflows:
-  deploy_and_notify:
+  test-and-deploy:
     jobs:
+      - test
+      - slack/on-hold:
+          context: SLACK_SECRETS
+          filters:
+            tags:
+              only: /^v.*/
+          requires:
+            - test
+      - pause_workflow:
+          filters:
+            tags:
+              only: /^v.*/
+          requires:
+            - test
+            - slack/on-hold
+          type: approval
       - deploy:
-          context: slack
+          filters:
+            tags:
+              only: /^v.*/
+          requires:
+            - pause_workflow
