@@ -10,11 +10,38 @@ jobs:
       - checkout
       - node/install-packages
       - run:
+          name: Show Environment Details
+          command: |
+            node --version
+            npm --version
+            # Otros comandos para mostrar información relevante del entorno
+
+      - run:
+          name: Log Error Details
+          command: |
+            # Ejecuta comandos que capturen detalles del error, por ejemplo:
+            # - npm run deploy 2>&1 | tee error.log
+            # Esto redirigirá la salida estándar y de error al archivo error.log
+            # para que puedas revisarlo después del trabajo.
+
+      - run:
+          name: List Working Directory Contents
+          command: |
+            ls -la
+
+      - run:
+          name: npm run deploy
           command: npm run deploy
+
       - slack/notify:
-          channel: Alerts
+          channel: alerts
           event: fail
           template: basic_fail_1
+
+      - run:
+          name: Show Full Job Log
+          command: cat ~/.circleci/build.log
+
 workflows:
   deploy_and_notify:
     jobs:
