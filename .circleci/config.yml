@@ -3,10 +3,12 @@ orbs:
   slack: usertech/circleci-slack-orb@5.1.0
 jobs:
   deploy:
-    docker:
-      - image: cimg/base:stable
+    executor:
+      name: node/default
     steps:
-      - run: echo "deploy my app"
+      - checkout
+      - node/install-packages
+      - run: npm run deploy
       - slack/notify:
           event: fail
           template: default_fail_1
