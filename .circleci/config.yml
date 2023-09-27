@@ -14,7 +14,7 @@ jobs:
       - slack/notify:
           channel: alerts
           event: fail
-          template: default_fail_1
+          template: full_fail_1
 workflows:
   deploy_and_notify:
     jobs:
