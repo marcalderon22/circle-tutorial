@@ -12,12 +12,12 @@ jobs:
       - run:
           command: npm run deploy
       - slack/notify:
-          channel: ABCXYZ
+          channel: alerts
           event: fail
           template: default_fail_1
 workflows:
   deploy_and_notify:
     jobs:
       - deploy:
-          context: SLACK_SECRETS
+          context: slack
 
