@@ -1,23 +1,26 @@
 version: 2.1
 orbs:
-  node: circleci/node@5.1
-  slack: usertech/circleci-slack-orb@5.1.0
+  slack: circleci/slack@4.1
 jobs:
-  deploy:
-    executor:
-      name: node/default
+  build:
+    docker:
+      - image: circleci/node:14
     steps:
       - checkout
-      - node/install-packages
+      # Ejecuta tus pasos de construcción y prueba aquí
+      # Si se produce un error, define un mensaje de error personalizado
       - run:
-          command: npm run deploy
-      - slack/notify:
-          channel: alerts
-          event: fail
-          template: full_fail_1
+          name: Notify Slack on Error
+          command: |
+            if [ $? -ne 0 ]; then
+              SLACK_MESSAGE="❌ El trabajo de CircleCI ha fallado en el proyecto XYZ. Detalles: $CIRCLE_BUILD_URL"
+              echo "$SLACK_MESSAGE" | circleci-slack notify -t $SLACK_ACCESS_TOKEN -c $SLACK_DEFAULT_CHANNEL
+            fi
+
 workflows:
-  deploy_and_notify:
+  version: 2
+  build_and_notify:
     jobs:
-      - deploy:
-          context: slack
+      - build
+
 
