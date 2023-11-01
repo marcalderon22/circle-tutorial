@@ -39,8 +39,7 @@ jobs:
 workflows:
   workflow1: # this can be any name you choose
     jobs:
-      - saluda
-      - despidete
+      - my-job
   
 
 
