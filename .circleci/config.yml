@@ -1,4 +1,4 @@
-version: '2.1'
+version: 2.1
 orbs:
   snyk: snyk/snyk@2.0.1
 jobs:
@@ -7,15 +7,8 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
-      - run: npm install
       - run: npm ci
-      - snyk/install
-      - run:
-          command: snyk version
-          name: Which version of snyk is installed
-      - run:
-          command: snyk code test
-          name: Run code scan
+      - snyk/scan
 workflows: null
 
 
