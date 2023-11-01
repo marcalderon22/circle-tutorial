@@ -1,23 +1,20 @@
-version: 2.1
+version: '2.1'
 orbs:
-  node: circleci/node@5.1
-  slack: usertech/circleci-slack-orb@5.1.0
+  snyk: snyk/snyk@x.y.z
 jobs:
-  deploy:
-    executor:
-      name: node/default
+  build:
+    docker:
+      - image: cimg/node:lts
     steps:
       - checkout
-      - node/install-packages
+      - run: npm ci
+      - snyk/install
       - run:
-          command: npm run deploy
-      - slack/notify:
-          channel: alerts
-          event: fail
-          template: default_fail_1
-workflows:
-  deploy_and_notify:
-    jobs:
-      - deploy:
-          context: slack
+          command: snyk version
+          name: Which version of snyk is installed
+      - run:
+          command: snyk code test
+          name: Run code scan
+workflows: null
+
 
