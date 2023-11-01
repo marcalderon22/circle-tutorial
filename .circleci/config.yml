@@ -12,3 +12,9 @@ jobs:
      - run: npm install -q
      - snyk/scan
 
+workflows:
+  version: 2
+  test:
+    jobs:
+      - build:
+          context: synk
