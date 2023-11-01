@@ -1,46 +1,19 @@
 version: 2.1
 orbs:
-  fossa-cli: fossa/cli@0.0.3
-
-commands:
-  dime_la_hora_y_espera:
-    parameters:
-      tiempo:
-        type: integer
-        default: 10
-    steps:
-      - run: date && sleep << parameters.tiempo>>
-      
+  snyk: snyk/snyk@2.0.1
 jobs:
-  my-job:
-    executor: fossa-cli/default
+  build:
+    docker:
+      - image: cimg/node:lts
     steps:
       - checkout
-      - fossa-cli/setup
-      - run: echo "Run more commands here"
-
-  saluda:
-    docker: 
-      - image: ubuntu:latest
-    steps:
-      - dime_la_hora_y_espera
-      - run: echo hola
-      - dime_la_hora_y_espera
-  despidete:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - dime_la_hora_y_espera:
-          tiempo: 20
-      - run: echo adios
-      - dime_la_hora_y_espera:
-          tiempo: 5
-
-workflows:
-  workflow1: # this can be any name you choose
-    jobs:
-      - my-job
-  
-
+      - snyk/install
+      - run:
+          command: snyk version
+          name: Which version of snyk is installed
+      - run:
+          command: snyk code test
+          name: Run code scan
+workflows: null
 
 
