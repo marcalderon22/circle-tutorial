@@ -1,19 +1,14 @@
 version: 2.1
+
 orbs:
   snyk: snyk/snyk@2.0.1
-jobs:
-  build:
-    docker:
-      - image: cimg/node:lts
-    steps:
-      - checkout
-      - snyk/install
-      - run:
-          command: snyk version
-          name: Which version of snyk is installed
-      - run:
-          command: snyk code test
-          name: Run code scan
-workflows: null
 
+jobs:
+ build:
+   docker:
+     - image: circleci/node:4.8.2
+   steps:
+     - checkout
+     - run: npm install -q
+     - snyk/scan
 
