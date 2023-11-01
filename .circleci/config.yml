@@ -1,13 +1,12 @@
 version: 2.1
 orbs:
-  snyk: snyk/snyk@2.0.1
-jobs:
-  build:
-    docker:
-      - image: cimg/node:lts
-    steps:
-      - checkout
-      - snyk/scan
-workflows: null
+  fossa-cli: fossa/cli@0.0.3
+workflows:
+  fossa-integration:
+    jobs:
+      - fossa-cli/analyze:
+          post-steps:
+            - run: null
+
 
 
