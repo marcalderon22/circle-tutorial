@@ -4,7 +4,7 @@ from pymongo import MongoClient
 app = Flask(__name)
 
 # Conéctate a tu base de datos de MongoDB en Atlas
-client = MongoClient("mongodb+srv://test11111111111111111155:test111111312412551@cluster.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://<username>:<password>@cluster.mongodb.net/test?retryWrites=true&w=majority")
 db = client['frutas_db']
 frutas_collection = db['frutas']
 
@@ -35,5 +35,4 @@ def delete_fruta(nombre):
         return 'Fruta no encontrada', 404
 
 if __name__ == '__main__':
-    app.run()
-
+    app.run(debug=True)
