@@ -8,10 +8,10 @@ jobs:
    docker:
      - image: circleci/node:4.8.2
    steps:
+     - checkout
      - run:
           name: List Files
           command: ls
-     - checkout
      - snyk/scan
 
 workflows:
