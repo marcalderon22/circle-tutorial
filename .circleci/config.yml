@@ -11,7 +11,7 @@ jobs:
      - checkout
      - run:
           name: List Files
-          command: ls
+          command: pwd
      - snyk/scan
 
 workflows:
