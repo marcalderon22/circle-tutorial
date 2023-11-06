@@ -1,7 +1,6 @@
-import os
 from pathlib import Path
 
-DATA_DIRECTORY = Path("/var/data/")
+DATA_DIRECTORY = Path("/var/data")
 
 def safe_file_operation(filename):
     # Comprueba que la ruta del archivo esté dentro del directorio permitido
@@ -9,10 +8,10 @@ def safe_file_operation(filename):
 
     if not file_path.is_file():
         return "Archivo no encontrado"
-    
+
     # Realiza la operación de archivo
     try:
-        with open(file_path, "r") as file:
+        with file_path.open("r") as file:
             content = file.read()
         return content
     except Exception as e:
