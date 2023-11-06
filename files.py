@@ -4,7 +4,8 @@ DATA_DIRECTORY = Path("/var/data")
 
 def safe_file_operation(filename):
     # Comprueba que la ruta del archivo esté dentro del directorio permitido
-
+    file_path = os.path.join(DATA_DIRECTORY, filename)
+    
     if not file_path.is_file():
         return "Archivo no encontrado"
 
