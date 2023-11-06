@@ -12,7 +12,10 @@ jobs:
      - run:
           name: List Files
           command: pwd
-     - snyk/scan
+     - run:
+          name: Run code scan
+          command: snyk code test
+          
 
 workflows:
   version: 2
