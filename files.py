@@ -1,21 +1,20 @@
 import os
+from pathlib import Path
 
-DATA_DIRECTORY = "/var/data/"
+DATA_DIRECTORY = Path("/var/data/")
 
 def safe_file_operation(filename):
     # Comprueba que la ruta del archivo esté dentro del directorio permitido
-    file_path = os.path.abspath(os.path.join(DATA_DIRECTORY, filename))
+    file_path = DATA_DIRECTORY / filename
 
-    if not file_path.startswith(DATA_DIRECTORY):
-        return "Ruta de archivo no permitida"
+    if not file_path.is_file():
+        return "Archivo no encontrado"
     
     # Realiza la operación de archivo
     try:
         with open(file_path, "r") as file:
             content = file.read()
         return content
-    except FileNotFoundError:
-        return "Archivo no encontrado"
     except Exception as e:
         return "Error: " + str(e)
 
