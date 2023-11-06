@@ -4,8 +4,8 @@ def buscar_usuario(usuario):
     conn = sqlite3.connect('base_de_datos.db')
     cursor = conn.cursor()
 
-    # Esta consulta es vulnerable a inyección de SQL
-    cursor.execute("SELECT * FROM usuarios WHERE nombre = '" + usuario + "'")
+    # Utilizar una consulta parametrizada
+    cursor.execute("SELECT * FROM usuarios WHERE nombre = ?", (usuario,))
     resultado = cursor.fetchall()
 
     conn.close()
