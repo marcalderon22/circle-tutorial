@@ -9,13 +9,13 @@ jobs:
      - image: circleci/node:4.8.2
    steps:
      - run:
-          command: echo PROBELY_TARGET_ID
+          command: echo $PROBELY_TARGET_ID
 
 workflows:
   example-workflow:
     jobs:
       - probely/scan:
-          target_id: PROBELY_TARGET_ID
+          target_id: $PROBELY_TARGET_ID
           context: dast
       - build:
           context: dast
