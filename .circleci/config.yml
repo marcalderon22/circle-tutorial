@@ -6,5 +6,5 @@ workflows:
   example-workflow:
     jobs:
       - probely/scan:
-          target_id: probely_target_i
+          target_id: PROBELY_TARGET_ID
           context: dast
