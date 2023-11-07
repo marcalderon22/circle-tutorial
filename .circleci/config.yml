@@ -1,21 +1,13 @@
-version: 2.1
+version: '2.1'
 orbs:
   deepfactor: deepfactor/deepfactor@1.2.0
 workflows:
   build:
     jobs:
-      - deepfactor/scan:
+      - deepfactor/web-scan:
           app-name: circleci-demo-job
-          cmd: /usr/local/bin/npm test
-          component-name: circleci-demo-javascript-express
+          component-name: circleci-demo-component
           portal-url: https://yourdeepfactor.yourcompany.com
-          pre-run:
-            - checkout
-            - run:
-                command: node -v
-                name: check-node-version
-            - run:
-                command: npm install
-                name: update-npm
-          tag: circleci-build
+          scan-url: https://www.google.com/
+          version: 1.0.0
   version: 2.1
