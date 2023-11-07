@@ -8,6 +8,7 @@ workflows:
           app-name: circleci-demo-job
           component-name: circleci-demo-component
           portal-url: https://yourdeepfactor.yourcompany.com
+          scan-auth-type: custom
+          scan-custom-token-auth:  <<parameters.deepfactor.PORTAL_TOKEN>>
           scan-url: https://google.com
           version: 1.0.0
-
