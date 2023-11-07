@@ -1,15 +1,6 @@
 version: 2.1
 orbs:
   probely: probely/security-scan@1.1.3
-      
-
-jobs:
- build:
-   docker:
-     - image: circleci/node:4.8.2
-   steps:
-     - run:
-          command: echo $PROBELY_TARGET_ID
 
 workflows:
   example-workflow:
@@ -17,8 +8,7 @@ workflows:
       - probely/scan:
           target_id: $PROBELY_TARGET_ID
           context: dast
-      - build:
-          context: dast
+
 
         
 
