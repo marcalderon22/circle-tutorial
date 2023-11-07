@@ -1,13 +1,8 @@
-version: '2.1'
 orbs:
-  deepfactor: deepfactor/deepfactor@1.2.0
+  probely: probely/security-scan@x.y.z
+version: 2.1
 workflows:
-  build:
+  example-workflow:
     jobs:
-      - deepfactor/web-scan:
-          app-name: circleci-demo-job
-          component-name: circleci-demo-component
-          portal-url: https://yourdeepfactor.yourcompany.com
-          scan-url: https://www.google.com/
-          version: 1.0.0
-  version: 2.1
+      - probely/scan:
+          target_id: probely_target_i
