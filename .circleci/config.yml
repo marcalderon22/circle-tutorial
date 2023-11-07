@@ -12,6 +12,9 @@ workflows:
           pre-run:
             - checkout
             - run:
+                command: node -v
+                name: check-node-version
+            - run:
                 command: npm install
                 name: update-npm
           tag: circleci-build
