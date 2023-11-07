@@ -7,3 +7,4 @@ workflows:
     jobs:
       - probely/scan:
           target_id: probely_target_i
+          context: dast
