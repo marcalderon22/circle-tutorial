@@ -2,18 +2,20 @@ version: 2.1
 orbs:
   deepfactor: deepfactor/deepfactor@1.2.0
 
-parameters:
-  portal_token:
-    type: string
-    
-workflows:
+jobs:
   build:
+    - deepfactor/web-scan:
+        app-name: circleci-demo-job
+        component-name: circleci-demo-component
+        portal-url: https://yourdeepfactor.yourcompany.com
+        scan-auth-type: custom
+        scan-custom-token-auth:  Bearer PORTAL_TOKEN
+        scan-url: https://google.com
+        version: 1.0.0
+
+workflows:
+  version: 2
+  test:
     jobs:
-      - deepfactor/web-scan:
-          app-name: circleci-demo-job
-          component-name: circleci-demo-component
-          portal-url: https://yourdeepfactor.yourcompany.com
-          scan-auth-type: custom
-          scan-custom-token-auth:  <<parameters.deepfactor.PORTAL_TOKEN>>
-          scan-url: https://google.com
-          version: 1.0.0
+      - build:
+          context: deepfactor
