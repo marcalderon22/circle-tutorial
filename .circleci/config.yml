@@ -1,6 +1,11 @@
 version: 2.1
 orbs:
   deepfactor: deepfactor/deepfactor@1.2.0
+
+parameters:
+  portal_token:
+    type: string
+    
 workflows:
   build:
     jobs:
