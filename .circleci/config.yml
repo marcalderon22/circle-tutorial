@@ -10,6 +10,9 @@ jobs:
       - probely/scan:
           target_id: $PROBELY_TARGET_ID
       - run:
+          name: Wait for scan results
+          command: sleep 300 # wait for 5 minutes
+      - run:
           name: Download Probely scan results
           command: |
             curl -X GET "https://api.probely.com/targets/$PROBELY_TARGET_ID/scans/latest/report" \
