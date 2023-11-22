@@ -18,7 +18,7 @@ jobs:
             -H "Authorization: Bearer $PROBELY_API_KEY" \
             -o probely-report.pdf
       - store_artifacts:
-          path: scan-results/probely-report.pdf
+          path: scan-results
 
           
 workflows:
