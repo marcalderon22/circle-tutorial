@@ -7,11 +7,10 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - probely/scan:
-          target_id: $PROBELY_TARGET_ID
+      
       - run:
           name: Wait for scan results
-          command: sleep 300 # wait for 5 minutes
+          command: sleep 3 # wait for 5 minutes
       - run:
           name: Download Probely scan results
           command: |
