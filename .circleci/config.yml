@@ -2,13 +2,30 @@ version: 2.1
 orbs:
   probely: probely/security-scan@1.1.3
 
-workflows:
-  example-workflow:
-    jobs:
+jobs:
+  my_probely_scan:
+    docker:
+      - image: cimg/base:stable
+    steps:
       - probely/scan:
           target_id: $PROBELY_TARGET_ID
-          context: dast
+      - run:
+          name: Download Probely scan results
+          command: |
+            curl -X GET "https://api.probely.com/targets/$PROBELY_TARGET_ID/scans/latest/report" \
+            -H "Authorization: Bearer $PROBELY_API_KEY" \
+            -o probely-report.pdf
+      - store_artifacts:
+          path: probely-report.pdf
+          destination: scan-results
 
+          
+workflows:
+  version: 2
+  example-workflow:
+    jobs:
+      - my_probely_scan:
+          context: dast
 
         
 
