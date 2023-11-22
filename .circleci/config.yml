@@ -11,11 +11,6 @@ jobs:
           name: Install jq
           command: |
             sudo apt-get update && sudo apt-get install -y jq
-      - probely/scan:
-            target_id: $PROBELY_TARGET_ID
-      - run:
-          name: Wait for scan results
-          command: sleep 300 # wait for 5 minutes
       - run:
           name: Get scans
           command: |
