@@ -18,6 +18,9 @@ jobs:
             -H "Authorization: JWT $PROBELY_API_KEY" \
             -o scans.json
       - run:
+          name: Print scans.json
+          command: cat scans.json
+      - run:
           name: Extract last scan ID
           command: |
             ID_VALUE=$(jq -r 'results[0].id' scans.json)
