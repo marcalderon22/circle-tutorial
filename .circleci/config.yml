@@ -11,17 +11,21 @@ jobs:
           name: Install jq
           command: |
             sudo apt-get update && sudo apt-get install -y jq
-      - run:
-          name: Run scan and save ID
-          command: |
-            echo $(probely/scan target_id: $PROBELY_TARGET_ID) > probely_id.txt
+      - probely/scan:
+            target_id: $PROBELY_TARGET_ID
       - run:
           name: Wait for scan results
           command: sleep 300 # wait for 5 minutes
       - run:
-          name: Extract ID
+          name: Get scans
           command: |
-            ID_VALUE=$(jq -r '.target.id' probely_id.txt)
+            curl -X GET "https://api.eu.probely.com/targets/$PROBELY_TARGET_ID/scans" \
+            -H "Authorization: JWT $PROBELY_API_KEY" \
+            -o scans.json
+      - run:
+          name: Extract last scan ID
+          command: |
+            ID_VALUE=$(jq -r 'results[0].target.id' scans.json)
             echo "ID Value: $ID_VALUE"
       - run:
           name: Download Probely scan results
@@ -29,6 +33,8 @@ jobs:
             curl -X GET "https://api.eu.probely.com/targets/$PROBELY_TARGET_ID/scans/$ID_VALUE/report/?report_type=default" \
             -H "Authorization: JWT $PROBELY_API_KEY" \
             -o probely-report.pdf
+
+      
       - store_artifacts:
           path: probely-report.pdf
           destination: scan-results
