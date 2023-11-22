@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Extract last scan ID
           command: |
-            ID_VALUE=$(jq -r 'results[0].target.id' scans.json)
+            ID_VALUE=$(jq -r 'results[0].id' scans.json)
             echo "ID Value: $ID_VALUE"
       - run:
           name: Download Probely scan results
