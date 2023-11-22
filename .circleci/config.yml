@@ -16,9 +16,9 @@ jobs:
           command: |
             curl -X GET "https://api.eu.probely.com/targets/39orRp99KgFc/scans/3DJdjguzSv6A/report/?report_type=default" \
             -H "Authorization: Bearer $PROBELY_API_KEY" \
-            -o probely-report.pdf
+            -o probely-report.json
       - store_artifacts:
-          path: probely-report.pdf
+          path: probely-report.json
           destination: scan-results
 
           
