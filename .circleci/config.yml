@@ -14,7 +14,7 @@ jobs:
       - run:
           name: Download Probely scan results
           command: |
-            curl -X GET "https://api.eu.probely.com/targets/39orRp99KgFc/scans/3DJdjguzSv6A/report/?report_type=default" \
+            curl -X GET "https://api.probely.com/targets/$PROBELY_TARGET_ID/scans/latest/report"  \
             -H "Authorization: Bearer $PROBELY_API_KEY" \
             -o probely-report.json
       - store_artifacts:
