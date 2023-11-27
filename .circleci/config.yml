@@ -14,12 +14,9 @@ jobs:
       - run:
           name: Get scans
           command: |
-            REPORT_URL="https://api.eu.probely.com/targets/$PROBELY_TARGET_ID/scans/$ID_VALUE/report/?report_type=default"
-            echo "URL del informe: $REPORT_URL"
-
-            curl -X GET "$REPORT_URL" \
+            curl -X GET "https://api.eu.probely.com/targets/39orRp99KgFc/scans/" \
             -H "Authorization: JWT $PROBELY_API_KEY" \
-            -o probely-report.pdf
+            -o scans.json
       - run:
           name: Print scans.json
           command: cat scans.json
@@ -31,11 +28,12 @@ jobs:
       - run:
           name: Download Probely scan results
           command: |
-            curl -X GET "https://api.eu.probely.com/targets/$PROBELY_TARGET_ID/scans/$ID_VALUE/report/?report_type=default" \
+            REPORT_URL="https://api.eu.probely.com/targets/$PROBELY_TARGET_ID/scans/$ID_VALUE/report/?report_type=default"
+            echo "URL del informe: $REPORT_URL"
+            curl -X GET "$REPORT_URL" \
             -H "Authorization: JWT $PROBELY_API_KEY" \
             -o probely-report.pdf
-
-      
+               
       - store_artifacts:
           path: probely-report.pdf
           destination: scan-results
