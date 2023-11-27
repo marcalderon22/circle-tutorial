@@ -11,15 +11,17 @@ jobs:
           name: Install jq
           command: |
             sudo apt-get update && sudo apt-get install -y jq
+      - probely/scan:
+          target_id: $PROBELY_TARGET_ID
+      - run:
+          name: Wait for scan results
+          command: sleep 300
       - run:
           name: Get scans
           command: |
             curl -X GET "https://api.eu.probely.com/targets/39orRp99KgFc/scans/" \
             -H "Authorization: JWT $PROBELY_API_KEY" \
             -o scans.json
-      - run:
-          name: Print scans.json
-          command: cat scans.json
       - run:
           name: Download Probely scan results
           command: |
