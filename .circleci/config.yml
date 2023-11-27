@@ -21,15 +21,10 @@ jobs:
           name: Print scans.json
           command: cat scans.json
       - run:
-          name: Extract last scan ID
-          command: |
-            ID_VALUE=$(jq -r '.results[0].id' scans.json)
-            echo "ID Value: $ID_VALUE"
-      - run:
           name: Download Probely scan results
           command: |
+            ID_VALUE=$(jq -r '.results[0].id' scans.json)
             REPORT_URL="https://api.eu.probely.com/targets/$PROBELY_TARGET_ID/scans/$ID_VALUE/report/?report_type=default"
-            echo "URL del informe: $REPORT_URL"
             curl -X GET "$REPORT_URL" \
             -H "Authorization: JWT $PROBELY_API_KEY" \
             -o probely-report.pdf
